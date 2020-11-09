@@ -1,7 +1,9 @@
-layout: page
-title: "IAM RDS Authentication in Ecto"
-date: 2020-11-09 12:00:00 -0000
-categories: elixir ecto iam rds
+---
+layout: post
+title:  "IAM RDS Authentication In Ecto"
+date:   2020-11-07 20:00:00 -0600
+categories: elixir ecto rds iam aws
+---
 
 # Introduction 
 
@@ -56,8 +58,8 @@ The EC2 instance, either direct or managed via an autoscaling group, requires an
 
 I won't belabor too deeply on how this works as this is pretty standard stuff in the AWS/Terraform side of the house. Check out the [AWS](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.IAMPolicy.html) or [Terraform](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/launch_template) as necessary.
 
-
-```data "aws_iam_policy_document" "application" {
+```
+data "aws_iam_policy_document" "application" {
   statement {
     actions = [
       "rds-db:connect"
