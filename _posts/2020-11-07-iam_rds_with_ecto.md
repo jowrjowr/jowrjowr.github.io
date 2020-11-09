@@ -1,6 +1,9 @@
-# IAM RDS Authentication in Ecto
+layout: page
+title: "IAM RDS Authentication in Ecto"
+date: 2020-11-09 12:00:00 -0000
+categories: elixir ecto iam rds
 
-## Introduction 
+# Introduction 
 
 A big problem with managing database access is managing credentials. Every facet is a nuisance. Storing, retreiving, retiring. All securely. 
 
@@ -8,13 +11,13 @@ It turns out that AWS offers a cool feature called [IAM RDS authentication](http
 
 The overall idea here is to show how to implment this in Elixir using Ecto, as when I figured this out there was litearlly no documentation on the subject and there's been some requests for this info.
 
-## Pre-requisites
+# Pre-requisites
 
 Note: Please refer to the [AWS documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Connecting.html) and its subsequent links for how this works in general. I am assuming basic familiarity so I don't have to replicate everything AWS says.
 
 For the infrastructure side of things I use [Terraform](https://www.terraform.io/) with the AWS and postgres providers to manage the database infrastructure.
 
-### Database setup
+# Database setup
 
 There is two parts to the database side.
 
@@ -43,7 +46,7 @@ resource "postgresql_role" "application_iam" {
 
 On a related note, with how tightly coupled infrastructure and application code become, this is why I prefer storing infrastructure code with application code. 
 
-## IAM/EC2 Setup
+# IAM/EC2 Setup
 
 A valid question/concern would be "Doesn't this mean any AWS user or EC2 instance can access the database? 
 
@@ -69,13 +72,13 @@ I won't belabor too deeply on how this works as this is pretty standard stuff in
 
 I used a glob in place of the DB identifier because with environments that have multiple databases make this a nuisance to deal with. Tuning for flavor is encouraged.
 
-## Testing
+# Testing
 
 I explicitly lay this out because you need to test whether the instance can successfully authenticate to the database before Elixir work can be meaningfully debugged. The [documentation](https://docs.aws.amazon.com/AmazonRDS/latest/UserGuide/UsingWithRDS.IAMDBAuth.Connecting.AWSCLI.PostgreSQL.html) lays out how to do this.
 
 Thankfully once it works, it is brick stable unless IAM is changed.
 
-## Elixir
+# Ecto
 
 The theory for this is conceptually pretty simple.
 
